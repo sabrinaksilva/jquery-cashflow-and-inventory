@@ -1,25 +1,30 @@
 table {
     border-collapse: collapse;
-    border: 1px solid rgba(0, 0, 0, 0.8);
+    border: 5px solid #751c3e;
     font-family: sans-serif;
     font-size: 1rem;
     letter-spacing: 1px;
     background-color: #ebecf9;
+    width: 50%;
 }
 
-.table-transactions-to-pay {
-    box-shadow: 0 0 30px #960000;
+.table-charges-transactions {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
 }
 
 
-.table-transactions-to-receive {
-    box-shadow: 0 0 30px #2db34d;
+.table-transactions-incomes {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
 }
 
 caption {
     caption-side: bottom;
     padding: 10px;
     font-weight: bold;
+}
+
+thead {
+    height: 50px;
 }
 
 thead,
@@ -32,12 +37,6 @@ th,
 td {
     border: 1px solid rgb(160 160 160);
     padding: 8px 10px;
-}
-
-.body-transactions-to-pay-table tr th td:last-of-type {
-    text-align: center;
-    color: #960000;
-
 }
 
 
@@ -58,10 +57,18 @@ tfoot tr,td {
 
 .transactions-columns-div {
     justify-content: center;
-    display: flex; /* Alinha os elementos lado a lado */
+    display: flex;
 
     margin: 10px; /* Ajusta o espaçamento ao redor de cada tabela */
     flex: 1; /* Faz com que as tabelas dividam igualmente o espaço disponível */
     /*min-width: 1500px; !* Define um tamanho mínimo para as tabelas *!*/
 }
 
+.charge-transaction-row .transaction-value-column {
+    color: red;
+    font-weight: bold;
+}
+.income-transaction-row .transaction-value-column {
+    color: darkgreen;
+    font-weight: bold;
+}

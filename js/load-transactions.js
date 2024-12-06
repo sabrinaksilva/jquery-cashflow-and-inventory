@@ -299,18 +299,18 @@ get_transactions = async () => {
 
 const params = {
      toPay: {
-        placeholder: 'transactions-to-pay-placeholder',
-        pathToElement: 'transactions-to-pay-table.html',
+        placeholder: 'charge-transactions-placeholder',
+        pathToElement: 'charges-transactions-table.html',
         typeFilter: 'OUT',
-        tableBodyElement: '.table-transactions-to-pay tbody',
-        tableFooterTextElement : '.table-transactions-to-pay-footer td h2'
+        tableBodyElement: '.table-charges-transactions tbody',
+        tableUpHeaderValuesResume : '.table-charges-transactions-footer td h2'
     },
     toReceive: {
-        placeholder: 'transactions-to-receive-placeholder',
-        pathToElement: 'transactions-to-receive-table.html',
+        placeholder: 'income-transactions-placeholder',
+        pathToElement: 'incomes-transactions-table.html',
         typeFilter: 'IN',
-        tableBodyElement: '.table-transactions-to-receive tbody',
-        tableFooterTextElement : '.table-transactions-to-receive-footer td h2'
+        tableBodyElement: '.table-transactions-incomes tbody',
+        tableFooterTextElement : '.table-transactions-incomes-footer td h2'
     }
 }
 
@@ -331,43 +331,48 @@ async function getFilteredTransactions() {
 
 
 $(document).ready(async function () {
-    // Carrega um arquivo HTML externo (transactions-to-pay-table.html)
+    // Carrega um arquivo HTML externo (charges-transactions-table.html)
     // dentro do elemento com o ID transactions-placeholder (index.html)
     const filteredTransactions = await getFilteredTransactions()
     
-    // Carregar a tabela de "to pay" e renderizar as transações depois que a tabela for carregada
     $('#' + params.toPay.placeholder).load(params.toPay.pathToElement, function () {
         renderTransactionsInTableRows(
             filteredTransactions['OUT'],
             params.toPay.tableBodyElement,
-            params.toPay.tableFooterTextElement
+            params.toPay.tableUpHeaderValuesResume,
+            'OUT'
         );
     });
     
-    // Carregar a tabela de "to receive" e renderizar as transações depois que a tabela for carregada
     $('#' + params.toReceive.placeholder).load(params.toReceive.pathToElement, function () {
         renderTransactionsInTableRows(
             filteredTransactions['IN'],
             params.toReceive.tableBodyElement,
-            params.toReceive.tableFooterTextElement
+            params.toReceive.tableFooterTextElement,
+            'IN'
         );
     });
 });
 
-function renderTransactionsInTableRows(filteredTransactions, tableBodyElement, tableFooterTextElement) {
+function renderTransactionsInTableRows(filteredTransactions, tableBodyElement, tableUpHeaderValuesResume, transaction_type) {
+    let rowClassName  = "charge-transaction-row";
+    if (transaction_type === 'IN') {
+        rowClassName = "income-transaction-row"
+    }
+    
     const tableBody = $(tableBodyElement);
     
     tableBody.empty();
     let total = 0;
     filteredTransactions.forEach(transaction => {
-        const row = `<tr>
+        const row = `<tr class=${rowClassName}>
             <th scope="row">${transaction.date}</th>
             <td>${transaction.source}</td>
-            <td>$${transaction.value.toFixed(2)}</td>
+            <td class="transaction-value-column">$${transaction.value.toFixed(2)}</td>
         </tr>`;
         tableBody.append(row);
         total += transaction.value;
     });
     
-    $(tableFooterTextElement).text(`$ ${total.toFixed(2)}`);
+    $(tableUpHeaderValuesResume).text(`$ ${total.toFixed(2)}`);
 }
