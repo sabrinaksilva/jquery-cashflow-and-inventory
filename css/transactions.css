@@ -9,7 +9,11 @@ table {
 
 .table-transactions-to-pay {
     box-shadow: 0 0 30px #960000;
+}
 
+
+.table-transactions-to-receive {
+    box-shadow: 0 0 30px #2db34d;
 }
 
 caption {
@@ -30,7 +34,7 @@ td {
     padding: 8px 10px;
 }
 
-td:last-of-type {
+.body-transactions-to-pay-table tr th td:last-of-type {
     text-align: center;
     color: #960000;
 
@@ -45,10 +49,19 @@ tfoot tr,td {
     font-weight: bold;
 }
 
-.transactions-columns-div {
-    margin: 30px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-
+.transactions-tables-container {
+    display: flex; /* Alinha os elementos lado a lado */
+    justify-content: center;
+    /*flex-wrap: wrap; !* Caso as tabelas não caibam na tela, elas irão quebrar de linha *!*/
+    /*margin: 20px;*/
 }
+
+.transactions-columns-div {
+    justify-content: center;
+    display: flex; /* Alinha os elementos lado a lado */
+
+    margin: 10px; /* Ajusta o espaçamento ao redor de cada tabela */
+    flex: 1; /* Faz com que as tabelas dividam igualmente o espaço disponível */
+    /*min-width: 1500px; !* Define um tamanho mínimo para as tabelas *!*/
+}
+
